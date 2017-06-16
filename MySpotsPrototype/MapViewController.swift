@@ -29,6 +29,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        locationInit()
         mapInit()
     }
 
@@ -37,7 +38,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func mapInit() {
+    func locationInit() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -46,7 +47,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         locationManager.startUpdatingLocation()
         
         placesClient = GMSPlacesClient.shared()
-        
+    }
+    
+    func mapInit() {
         // Create a map
         // if user current location can not get, it will be set default position
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
@@ -62,7 +65,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         // Add the map to the view, hide it until we've got a location update.
         view.addSubview(mapView)
         mapView.isHidden = true
-        
     }
     
     func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String,
