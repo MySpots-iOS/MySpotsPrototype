@@ -15,7 +15,6 @@
 		AA59DAA31EF3305E00C22F09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA59DAA11EF3305E00C22F09 /* LaunchScreen.storyboard */; };
 		AA59DAAB1EF3382100C22F09 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DAAA1EF3382100C22F09 /* KeyManager.swift */; };
 		AA59DAAD1EF3383B00C22F09 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA59DAAC1EF3383B00C22F09 /* APIKey.plist */; };
-		AA59DAAF1EF34A6800C22F09 /* GooglePlacesDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DAAE1EF34A6800C22F09 /* GooglePlacesDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +30,6 @@
 		AA59DAA41EF3305E00C22F09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA59DAAA1EF3382100C22F09 /* KeyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
 		AA59DAAC1EF3383B00C22F09 /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
-		AA59DAAE1EF34A6800C22F09 /* GooglePlacesDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlacesDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +90,6 @@
 				AA59DAA11EF3305E00C22F09 /* LaunchScreen.storyboard */,
 				AA59DAA41EF3305E00C22F09 /* Info.plist */,
 				AA59DAAC1EF3383B00C22F09 /* APIKey.plist */,
-				AA59DAAE1EF34A6800C22F09 /* GooglePlacesDemoViewController.swift */,
 			);
 			path = MySpotsPrototype;
 			sourceTree = "<group>";
@@ -222,7 +219,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA59DAAF1EF34A6800C22F09 /* GooglePlacesDemoViewController.swift in Sources */,
 				AA59DA9B1EF3305E00C22F09 /* MapViewController.swift in Sources */,
 				AA59DA991EF3305E00C22F09 /* AppDelegate.swift in Sources */,
 				AA59DAAB1EF3382100C22F09 /* KeyManager.swift in Sources */,
