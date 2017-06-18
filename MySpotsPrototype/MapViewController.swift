@@ -14,7 +14,7 @@ import GooglePlacePicker
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
     var locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
+    //var currentLocation: CLLocation?
     var mapView: GMSMapView!
     var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 15.0
@@ -97,7 +97,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func makeInformationView() {
         //let generalInformation: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
-        let generalInformation: UIView = PlaceInformation(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
+        let placeInformationView = PlaceInformation(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
+        let generalInformation: UIView = placeInformationView
         self.view.addSubview(generalInformation)
         
         generalInformation.backgroundColor = UIColor.white
@@ -107,6 +108,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
+        
+        placeInformationView.setSelectedPlaceName("Test")
+        
     }
     
     func placeInfo(placeID: String) {

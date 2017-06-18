@@ -10,6 +10,8 @@ import UIKit
 
 class PlaceInformation: UIView {
 
+    @IBOutlet weak var placeName: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoresizesSubviews = false
@@ -24,6 +26,10 @@ class PlaceInformation: UIView {
         let view = Bundle.main.loadNibNamed( "PlaceInformation", owner: self, options: nil)?.first as! UIView
         view.frame = self.bounds
         self.addSubview(view)
+    }
+    
+    func setSelectedPlaceName(_ name:String) {
+        placeName.text = name
     }
 
 }
