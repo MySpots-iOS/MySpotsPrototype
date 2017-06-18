@@ -72,14 +72,41 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         // When user tapped a place, picker will be shown up
         
-        infoMarker.snippet = placeID
-        infoMarker.position = location
-        infoMarker.title = name
-        infoMarker.opacity = 0;
-        infoMarker.infoWindowAnchor.y = 1
-        infoMarker.map = mapView
+//        infoMarker.snippet = placeID
+//        infoMarker.position = location
+//        infoMarker.title = name
+//        infoMarker.opacity = 0;
+//        infoMarker.infoWindowAnchor.y = 1
+//        infoMarker.map = mapView
         placeInfo(placeID: placeID)
+        
+        
+        // Marker Test
+        let marker = GMSMarker(position: location)
+        // Marker Color Changes
+        marker.icon = GMSMarker.markerImage(with: .black)
+        // no need it
+        marker.title = "Hello World"
+        // Add
+        marker.map = mapView
+        
+        makeInformationView()
+        
         mapView.selectedMarker = infoMarker
+    }
+    
+    func makeInformationView() {
+        //let generalInformation: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
+        let generalInformation: UIView = PlaceInformation(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
+        self.view.addSubview(generalInformation)
+        
+        generalInformation.backgroundColor = UIColor.white
+        
+        generalInformation.translatesAutoresizingMaskIntoConstraints = false
+        generalInformation.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
+        generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
     }
     
     func placeInfo(placeID: String) {
@@ -95,9 +122,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             }
             
             print("Place name \(place.name)")
-            print("Place address \(place.formattedAddress)")
+            print("Place address \(String(describing: place.formattedAddress))")
             print("Place placeID \(place.placeID)")
-            print("Place attributions \(place.attributions)")
+            print("Place attributions \(String(describing: place.attributions))")
             print("Place category \(place.types)")
             print("Place rating \(place.rating)")
         })
