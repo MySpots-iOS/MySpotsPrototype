@@ -14,7 +14,6 @@ import GooglePlacePicker
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
     fileprivate var locationManager = CLLocationManager()
-    //var currentLocation: CLLocation?
     fileprivate var mapView: GMSMapView!
     fileprivate var placesClient: GMSPlacesClient!
     fileprivate var zoomLevel: Float = 15.0
@@ -24,25 +23,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     // A default location to use when location permission is not granted.
     fileprivate let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        locationInit()
-        mapInit()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     
-    
-    func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String,
-                 name:String, location:CLLocationCoordinate2D) {
-        
+    func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String, name:String, location:CLLocationCoordinate2D) {
         // When user tapped a place, picker will be shown up
         
 //        infoMarker.snippet = placeID
@@ -52,7 +35,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 //        infoMarker.infoWindowAnchor.y = 1
 //        infoMarker.map = mapView
         placeInfo(placeID: placeID)
-        
         
         // Marker Test
         let marker = GMSMarker(position: location)
@@ -106,37 +88,21 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             print("Place rating \(place.rating)")
         })
     }
-    
-//    @IBAction func pickPlace(_ sender: UIButton) {
-//        let config = GMSPlacePickerConfig(viewport: nil)
-//        let placePicker = GMSPlacePickerViewController(config: config)
-//        placePicker.delegate = self
-//        present(placePicker, animated: true, completion: nil)
-//    }
-    
-//    // To receive the results from the place picker 'self' will need to conform to
-//    // GMSPlacePickerViewControllerDelegate and implement this code.
-//    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
-//        // Dismiss the place picker, as it cannot dismiss itself.
-//        viewController.dismiss(animated: true, completion: nil)
-//        
-//        print("Place name \(place.name)")
-//        print("Place address \(String(describing: place.formattedAddress))")
-//        print("Place attributions \(String(describing: place.attributions))")
-//        print("Place Type \(String(describing: place.types))")
-//    }
-//    
-//    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
-//        // Dismiss the place picker, as it cannot dismiss itself.
-//        viewController.dismiss(animated: true, completion: nil)
-//        
-//        print("No place selected")
-//    }
-
-
 }
 
 extension MapViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        locationInit()
+        mapInit()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     func locationInit() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -151,9 +117,7 @@ extension MapViewController {
     func mapInit() {
         // Create a map
         // if user current location can not get, it will be set default position
-        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
-                                              longitude: defaultLocation.coordinate.longitude,
-                                              zoom: zoomLevel)
+        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude, zoom: zoomLevel)
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
@@ -175,9 +139,7 @@ extension MapViewController: CLLocationManagerDelegate {
         let location: CLLocation = locations.last!
         //print("Location: \(location)")
         
-        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                              longitude: location.coordinate.longitude,
-                                              zoom: zoomLevel)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: zoomLevel)
         
         if mapView.isHidden {
             mapView.isHidden = false
@@ -185,8 +147,6 @@ extension MapViewController: CLLocationManagerDelegate {
         } else {
             mapView.animate(to: camera)
         }
-        
-        //listLikelyPlaces()
     }
     
     // Handle authorization for the location manager.
@@ -200,7 +160,8 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.isHidden = false
         case .notDetermined:
             print("Location status not determined.")
-        case .authorizedAlways: fallthrough
+        case .authorizedAlways:
+            fallthrough
         case .authorizedWhenInUse:
             print("Location status is OK.")
         }
