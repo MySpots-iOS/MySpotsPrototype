@@ -13,17 +13,17 @@ import GooglePlacePicker
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
-    var locationManager = CLLocationManager()
+    fileprivate var locationManager = CLLocationManager()
     //var currentLocation: CLLocation?
-    var mapView: GMSMapView!
-    var placesClient: GMSPlacesClient!
-    var zoomLevel: Float = 15.0
+    fileprivate var mapView: GMSMapView!
+    fileprivate var placesClient: GMSPlacesClient!
+    fileprivate var zoomLevel: Float = 15.0
     
     // Declare GMSMarker instance at the class level.
-    let infoMarker = GMSMarker()
+    fileprivate let infoMarker = GMSMarker()
     
     // A default location to use when location permission is not granted.
-    let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
+    fileprivate let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,34 +38,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func locationInit() {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 100
-        locationManager.startUpdatingLocation()
-        
-        placesClient = GMSPlacesClient.shared()
-    }
     
-    func mapInit() {
-        // Create a map
-        // if user current location can not get, it will be set default position
-        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
-                                              longitude: defaultLocation.coordinate.longitude,
-                                              zoom: zoomLevel)
-        mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        mapView.settings.myLocationButton = true
-        mapView.isMyLocationEnabled = true
-        mapView.delegate = self
-        
-        // Add the map to the view, hide it until we've got a location update.
-        view.addSubview(mapView)
-        mapView.isHidden = true
-    }
     
     func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String,
                  name:String, location:CLLocationCoordinate2D) {
@@ -161,6 +134,37 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 //    }
 
 
+}
+
+extension MapViewController {
+    func locationInit() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 100
+        locationManager.startUpdatingLocation()
+        
+        placesClient = GMSPlacesClient.shared()
+    }
+    
+    func mapInit() {
+        // Create a map
+        // if user current location can not get, it will be set default position
+        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
+                                              longitude: defaultLocation.coordinate.longitude,
+                                              zoom: zoomLevel)
+        mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        mapView.settings.myLocationButton = true
+        mapView.isMyLocationEnabled = true
+        mapView.delegate = self
+        
+        // Add the map to the view, hide it until we've got a location update.
+        view.addSubview(mapView)
+        mapView.isHidden = true
+    }
 }
 
 // Delegates to handle events for the location manager.
