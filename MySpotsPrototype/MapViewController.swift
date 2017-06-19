@@ -27,6 +27,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var placeInformationView: PlaceInformation? = nil
     fileprivate var generalInformation: UIView? = nil
     
+    
+    /**
+     Tap event on Google Map
+     
+     - parameters:
+        - mapView: Map View
+        - placeID: Place identifier that it is stored Google Places
+        - name: Place name
+        - location: Place location coordinate(2D)
+     
+     */
     func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String, name:String, location:CLLocationCoordinate2D) {
         // When user tapped a place, picker will be shown up
         
@@ -48,6 +59,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         //mapView.selectedMarker = infoMarker
     }
     
+    
+    /**
+     Make marker on Google Map
+     
+     - parameters:
+        - position: Location Coordinate(2D)
+        - color: Marker Color
+     
+     */
     func makeMarker(position: CLLocationCoordinate2D, color: UIColor) {
         let marker = GMSMarker(position: position)
         marker.icon = GMSMarker.markerImage(with: color)
@@ -95,6 +115,11 @@ extension MapViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     Location initial function
+     
+     
+     */
     func locationInit() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -106,6 +131,16 @@ extension MapViewController {
         placesClient = GMSPlacesClient.shared()
     }
     
+    
+    /**
+     Google Map initial function
+     
+     - Requires:
+        Google API Key
+     
+     - SeeAlso:
+        AppDelegate file
+    */
     func mapInit() {
         // if user current location can not get, it will be set default position
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude, zoom: zoomLevel)
@@ -121,6 +156,13 @@ extension MapViewController {
         mapView.isHidden = true
     }
     
+    /**
+     Information View, if user tapped a place, the view will be shown the place information
+     
+     - Note:
+        Using Xib file for layout. See also: PlaceInformation.swift / xib
+     
+    */
     func makeInformationView() {
         placeInformationView = PlaceInformation(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
         generalInformation = placeInformationView!
