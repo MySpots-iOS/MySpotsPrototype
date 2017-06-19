@@ -23,6 +23,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     fileprivate var placeInformationView: PlaceInformation? = nil
     fileprivate var generalInformation: UIView? = nil
+    fileprivate var generalInfoBottomConstraints: [NSLayoutConstraint] = []
     
     //TODO
     // marker variable that stored from database
@@ -33,6 +34,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         print("Executed: Willmove")
+        animateHideView()
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        print("Executed: didtapmarker")
+        return true
     }
     
     /**
@@ -47,6 +54,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: TapAt CL")
         print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
         tempMarker?.map = nil
+        animateHideView()
     }
     
     /**
@@ -64,7 +72,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("You tapped at \(location.latitude), \(location.longitude)")
         setGeneralInformation(placeID)
         tempMarker = makeMarker(position: location, color: .black)
-        generalInformation?.isHidden = false
+        //generalInformation?.isHidden = false
+        animateShowView()
     }
     
     /**
@@ -212,9 +221,35 @@ extension MapViewController {
         generalInformation.translatesAutoresizingMaskIntoConstraints = false
         generalInformation.heightAnchor.constraint(equalToConstant: 100).isActive = true
         generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
-        generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
-        generalInformation.isHidden = true
+        self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100))
+        self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0))
+        // Set default
+        self.generalInfoBottomConstraints[0].isActive = true
+    }
+    
+    /**
+     Information View hide animation
+     
+     */
+    func animateHideView() {
+        self.generalInfoBottomConstraints[1].isActive = false
+        self.generalInfoBottomConstraints[0].isActive = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    /**
+     Information View show animation
+     
+     */
+    func animateShowView() {
+        self.generalInfoBottomConstraints[0].isActive = false
+        self.generalInfoBottomConstraints[1].isActive = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 }
 
