@@ -11,6 +11,7 @@ import UIKit
 class PlaceInformation: UIView {
 
     @IBOutlet weak var placeName: UILabel!
+    @IBOutlet weak var addressName: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,6 +31,10 @@ class PlaceInformation: UIView {
     
     func setSelectedPlaceName(_ name:String) {
         placeName.text = name
+    }
+    
+    func setSelectedAddress(_ address: String) {
+        addressName.text = address
     }
 
 }

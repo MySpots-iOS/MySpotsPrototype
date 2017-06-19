@@ -18,15 +18,27 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var placesClient: GMSPlacesClient!
     fileprivate var zoomLevel: Float = 15.0
     
-    // Declare GMSMarker instance at the class level.
-    fileprivate let infoMarker = GMSMarker()
-    
     // A default location to use when location permission is not granted.
     fileprivate let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
     
     fileprivate var placeInformationView: PlaceInformation? = nil
     fileprivate var generalInformation: UIView? = nil
     
+    //TODO
+    // marker variable that stored from database
+    var markers: [GMSMarker] = []
+    
+    // another marker variable is temp
+    fileprivate var tempMarker: GMSMarker? = nil
+    
+    
+    
+    
+    func mapView(_ mapView:GMSMapView, didTapAt coordinate:CLLocationCoordinate2D) {
+        print("Executed: TapAt CL")
+        print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
+        tempMarker?.map = nil
+    }
     
     /**
      Tap event on Google Map
@@ -39,24 +51,40 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      
      */
     func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String, name:String, location:CLLocationCoordinate2D) {
-        // When user tapped a place, picker will be shown up
-        
-//        infoMarker.snippet = placeID
-//        infoMarker.position = location
-//        infoMarker.title = name
-//        infoMarker.opacity = 0;
-//        infoMarker.infoWindowAnchor.y = 1
-//        infoMarker.map = mapView
-//        placeInfo(placeID: placeID)
-        
-        
-//        makeInformationView()
-        
-        makeMarker(position: location, color: .black)
-        
+        print("Executed: POI")
+        print("You tapped at \(location.latitude), \(location.longitude)")
+        setGeneralInformation(placeID)
+        tempMarker = makeMarker(position: location, color: .black)
         generalInformation?.isHidden = false
-        
-        //mapView.selectedMarker = infoMarker
+    }
+    
+    /**
+     Set data to the information view
+     
+     - parameters:
+        - placeID: Place identifier
+     
+    */
+    func setGeneralInformation(_ placeID: String) {
+        placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let place = place else {
+                print("No place details for \(placeID)")
+                return
+            }
+            
+            self.placeInformationView?.setSelectedPlaceName(place.name)
+            self.placeInformationView?.setSelectedAddress(place.formattedAddress!)
+            
+            print("Place placeID \(place.placeID)")
+            print("Place attributions \(String(describing: place.attributions))")
+            print("Place category \(place.types)")
+            print("Place rating \(place.rating)")
+        })
     }
     
     
@@ -68,34 +96,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         - color: Marker Color
      
      */
-    func makeMarker(position: CLLocationCoordinate2D, color: UIColor) {
+    func makeMarker(position: CLLocationCoordinate2D, color: UIColor) -> GMSMarker {
         let marker = GMSMarker(position: position)
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
+        return marker
     }
     
-    
-    
-//    func placeInfo(placeID: String) {
-//        placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
-//            if let error = error {
-//                print("lookup place id query error: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            guard let place = place else {
-//                print("No place details for \(placeID)")
-//                return
-//            }
-//            
-//            print("Place name \(place.name)")
-//            print("Place address \(String(describing: place.formattedAddress))")
-//            print("Place placeID \(place.placeID)")
-//            print("Place attributions \(String(describing: place.attributions))")
-//            print("Place category \(place.types)")
-//            print("Place rating \(place.rating)")
-//        })
-//    }
 }
 
 extension MapViewController {
@@ -108,6 +115,11 @@ extension MapViewController {
         // TODO load locations function
         
         makeInformationView()
+        
+        // TEST DATA
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), color: .black))
     }
     
     override func didReceiveMemoryWarning() {
