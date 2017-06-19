@@ -24,6 +24,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     // A default location to use when location permission is not granted.
     fileprivate let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
     
+    fileprivate var placeInformationView: PlaceInformation? = nil
+    fileprivate var generalInformation: UIView? = nil
     
     func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String, name:String, location:CLLocationCoordinate2D) {
         // When user tapped a place, picker will be shown up
@@ -34,60 +36,46 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 //        infoMarker.opacity = 0;
 //        infoMarker.infoWindowAnchor.y = 1
 //        infoMarker.map = mapView
-        placeInfo(placeID: placeID)
+//        placeInfo(placeID: placeID)
         
-        // Marker Test
-        let marker = GMSMarker(position: location)
-        // Marker Color Changes
-        marker.icon = GMSMarker.markerImage(with: .black)
-        // no need it
-        marker.title = "Hello World"
-        // Add
+        
+//        makeInformationView()
+        
+        makeMarker(position: location, color: .black)
+        
+        generalInformation?.isHidden = false
+        
+        //mapView.selectedMarker = infoMarker
+    }
+    
+    func makeMarker(position: CLLocationCoordinate2D, color: UIColor) {
+        let marker = GMSMarker(position: position)
+        marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
-        
-        makeInformationView()
-        
-        mapView.selectedMarker = infoMarker
     }
     
-    func makeInformationView() {
-        //let generalInformation: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
-        let placeInformationView = PlaceInformation(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
-        let generalInformation: UIView = placeInformationView
-        self.view.addSubview(generalInformation)
-        
-        generalInformation.backgroundColor = UIColor.white
-        
-        generalInformation.translatesAutoresizingMaskIntoConstraints = false
-        generalInformation.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
-        generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-        generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
-        
-        placeInformationView.setSelectedPlaceName("Test")
-        
-    }
     
-    func placeInfo(placeID: String) {
-        placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
-            if let error = error {
-                print("lookup place id query error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let place = place else {
-                print("No place details for \(placeID)")
-                return
-            }
-            
-            print("Place name \(place.name)")
-            print("Place address \(String(describing: place.formattedAddress))")
-            print("Place placeID \(place.placeID)")
-            print("Place attributions \(String(describing: place.attributions))")
-            print("Place category \(place.types)")
-            print("Place rating \(place.rating)")
-        })
-    }
+    
+//    func placeInfo(placeID: String) {
+//        placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
+//            if let error = error {
+//                print("lookup place id query error: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            guard let place = place else {
+//                print("No place details for \(placeID)")
+//                return
+//            }
+//            
+//            print("Place name \(place.name)")
+//            print("Place address \(String(describing: place.formattedAddress))")
+//            print("Place placeID \(place.placeID)")
+//            print("Place attributions \(String(describing: place.attributions))")
+//            print("Place category \(place.types)")
+//            print("Place rating \(place.rating)")
+//        })
+//    }
 }
 
 extension MapViewController {
@@ -96,6 +84,10 @@ extension MapViewController {
         
         locationInit()
         mapInit()
+        
+        // TODO load locations function
+        
+        makeInformationView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -115,7 +107,6 @@ extension MapViewController {
     }
     
     func mapInit() {
-        // Create a map
         // if user current location can not get, it will be set default position
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude, zoom: zoomLevel)
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
@@ -128,6 +119,25 @@ extension MapViewController {
         // Add the map to the view, hide it until we've got a location update.
         view.addSubview(mapView)
         mapView.isHidden = true
+    }
+    
+    func makeInformationView() {
+        placeInformationView = PlaceInformation(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
+        generalInformation = placeInformationView!
+        
+        guard let generalInformation = generalInformation else {
+            print("nil error")
+            return
+        }
+        
+        self.view.addSubview(generalInformation)
+        
+        generalInformation.translatesAutoresizingMaskIntoConstraints = false
+        generalInformation.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
+        generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
+        generalInformation.isHidden = true
     }
 }
 
