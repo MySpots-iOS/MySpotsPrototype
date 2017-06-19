@@ -31,9 +31,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     // another marker variable is temp
     fileprivate var tempMarker: GMSMarker? = nil
     
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        print("Executed: Willmove")
+    }
     
-    
-    
+    /**
+     Tap event which is not a place from Google Place
+     
+     - parameters:
+        - mapView: Map View
+        - coordinate: Tapped loacation coordinate(2D)
+     
+    */
     func mapView(_ mapView:GMSMapView, didTapAt coordinate:CLLocationCoordinate2D) {
         print("Executed: TapAt CL")
         print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
