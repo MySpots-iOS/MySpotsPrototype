@@ -33,16 +33,38 @@
                         <constraint firstAttribute="width" constant="60" id="a8e-cf-TK1"/>
                     </constraints>
                 </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N1L-OZ-JZW">
+                    <rect key="frame" x="20" y="59" width="185" height="21"/>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="185" id="B4j-td-sBe"/>
+                        <constraint firstAttribute="height" constant="21" id="DKC-Ca-SAy"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KX-Hi-UPQ">
+                    <rect key="frame" x="230" y="59" width="223" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="5Rn-bG-umE" firstAttribute="leading" secondItem="N1L-OZ-JZW" secondAttribute="trailing" constant="256" id="2E8-5q-EFx"/>
                 <constraint firstItem="6fZ-Q4-7MJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="3oN-KP-Fh4"/>
                 <constraint firstItem="5Rn-bG-umE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="3qF-k7-KTa"/>
                 <constraint firstItem="5Rn-bG-umE" firstAttribute="leading" secondItem="6fZ-Q4-7MJ" secondAttribute="trailing" constant="8" id="4lg-oF-XPN"/>
                 <constraint firstItem="6fZ-Q4-7MJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="6CW-cy-DTa"/>
+                <constraint firstItem="N1L-OZ-JZW" firstAttribute="top" secondItem="6fZ-Q4-7MJ" secondAttribute="bottom" constant="18" id="PIg-cO-zHf"/>
+                <constraint firstAttribute="bottom" secondItem="0KX-Hi-UPQ" secondAttribute="bottom" constant="20" id="Rbi-wE-SDF"/>
+                <constraint firstItem="0KX-Hi-UPQ" firstAttribute="leading" secondItem="N1L-OZ-JZW" secondAttribute="trailing" constant="25" id="b1W-R2-YFw"/>
                 <constraint firstAttribute="bottom" secondItem="5Rn-bG-umE" secondAttribute="bottom" constant="20" id="dcH-Bg-k97"/>
+                <constraint firstItem="0KX-Hi-UPQ" firstAttribute="top" secondItem="6fZ-Q4-7MJ" secondAttribute="bottom" constant="18" id="gbP-z1-rbW"/>
                 <constraint firstAttribute="bottom" secondItem="6fZ-Q4-7MJ" secondAttribute="bottom" constant="59" id="gpb-nr-kdP"/>
+                <constraint firstItem="5Rn-bG-umE" firstAttribute="leading" secondItem="0KX-Hi-UPQ" secondAttribute="trailing" constant="8" id="kAA-N3-fJm"/>
                 <constraint firstAttribute="trailing" secondItem="5Rn-bG-umE" secondAttribute="trailing" constant="20" id="na8-aR-Ph1"/>
+                <constraint firstItem="N1L-OZ-JZW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="oIR-hZ-MOH"/>
+                <constraint firstAttribute="bottom" secondItem="N1L-OZ-JZW" secondAttribute="bottom" constant="20" id="rG3-7L-MaD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

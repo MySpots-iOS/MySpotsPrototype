@@ -118,6 +118,20 @@ extension MapViewController {
     /**
      Location initial function
      
+     - Attention: test
+     - Bug: test
+     - Date: date
+     - Experiment: test
+     - Important: test
+     - Invariant: test
+     - Note: test
+     - Precondition: test
+     - Postcondition: test
+     - Remark: test
+     - Requires: test
+     - Since: @0.0.1
+     - Version: 1.0
+     - Warning: test
      
      */
     func locationInit() {
