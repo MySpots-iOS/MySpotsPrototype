@@ -26,6 +26,7 @@ class PlaceInformation: UIView {
     func loadXibView() {
         let view = Bundle.main.loadNibNamed( "PlaceInformation", owner: self, options: nil)?.first as! UIView
         view.frame = self.bounds
+        self.placeName.textColor = UIColor.mainDarkGreen()
         self.addSubview(view)
     }
     
