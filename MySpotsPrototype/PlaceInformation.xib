@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaceInformation" customModule="MySpotsPrototype" customModuleProvider="target">
             <connections>
                 <outlet property="addressName" destination="0KX-Hi-UPQ" id="oXt-Jd-WON"/>
+                <outlet property="distanceIcon" destination="5Rn-bG-umE" id="znY-K9-iSG"/>
                 <outlet property="placeName" destination="6fZ-Q4-7MJ" id="AlK-Aj-s6w"/>
             </connections>
         </placeholder>
