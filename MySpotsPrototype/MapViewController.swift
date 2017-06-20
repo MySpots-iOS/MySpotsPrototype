@@ -18,6 +18,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var placesClient: GMSPlacesClient!
     fileprivate var zoomLevel: Float = 15.0
     
+    // Store GMSGeocoder as an instance variable.
+    let geocoder = GMSGeocoder()
+    
     // A default location to use when location permission is not granted.
     fileprivate let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
     
@@ -35,7 +38,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         print("Executed: Willmove")
         animateHideView()
-        mapView.clear()
+        //mapView.clear()
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
@@ -43,15 +46,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         return true
     }
     
-//    func mapView(_ mapView:GMSMapView, idleAt cameraPosition:GMSCameraPosition) {
-//        // Store GMSGeocoder as an instance variable.
-//        let geocoder = GMSGeocoder()
-//        geocoder.reverseGeocodeCoordinate(cameraPosition.target) { (response, error) in
-//            guard error == nil else {
-//                return
-//            }
-//        }
-//    }
+    func mapView(_ mapView:GMSMapView, idleAt cameraPosition:GMSCameraPosition) {
+        
+        geocoder.reverseGeocodeCoordinate(cameraPosition.target) { (response, error) in
+            guard error == nil else {
+                return
+            }
+            
+            if let result = response?.firstResult() {
+                print(result)
+            }
+        }
+    }
     
     /**
      Tap event which is not a place from Google Place
@@ -243,7 +249,9 @@ extension MapViewController {
     }
     
     func detailView(_ sender: UITapGestureRecognizer) {
-        print("tap")
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        vc.test = "aaa"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     /**
