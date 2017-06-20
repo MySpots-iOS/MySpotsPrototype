@@ -83,7 +83,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("You tapped at \(location.latitude), \(location.longitude)")
         setGeneralInformation(placeID)
         tempMarker = makeMarker(position: location, color: .black)
-        //generalInformation?.isHidden = false
         animateShowView()
     }
     
@@ -227,6 +226,10 @@ extension MapViewController {
             return
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(detailView(_:)))
+        tapGesture.delegate = self as? UIGestureRecognizerDelegate
+        
+        generalInformation.addGestureRecognizer(tapGesture)
         self.view.addSubview(generalInformation)
         
         generalInformation.translatesAutoresizingMaskIntoConstraints = false
@@ -237,6 +240,10 @@ extension MapViewController {
         self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0))
         // Set default
         self.generalInfoBottomConstraints[0].isActive = true
+    }
+    
+    func detailView(_ sender: UITapGestureRecognizer) {
+        print("tap")
     }
     
     /**
