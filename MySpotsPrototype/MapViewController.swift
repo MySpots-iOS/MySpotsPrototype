@@ -18,9 +18,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var placesClient: GMSPlacesClient!
     fileprivate var zoomLevel: Float = 15.0
     
-    // Store GMSGeocoder as an instance variable.
-    let geocoder = GMSGeocoder()
-    
     // A default location to use when location permission is not granted.
     fileprivate let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
     
@@ -43,19 +40,26 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         print("Executed: didtapmarker")
+        setGeneralInformation(marker.snippet!)
         return true
     }
     
     func mapView(_ mapView:GMSMapView, idleAt cameraPosition:GMSCameraPosition) {
+        reverseGeocodeCoordinate(cameraPosition.target)
+    }
+    
+    func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        // Store GMSGeocoder as an instance variable.
+        let geocoder = GMSGeocoder()
         
-        geocoder.reverseGeocodeCoordinate(cameraPosition.target) { (response, error) in
+        geocoder.reverseGeocodeCoordinate(coordinate) { (response, error) in
             guard error == nil else {
                 return
             }
             
-            if let result = response?.firstResult() {
-                print(result)
-            }
+//            if let result = response?.firstResult() {
+//                print(result)
+//            }
         }
     }
     
@@ -88,8 +92,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
         setGeneralInformation(placeID)
-        tempMarker = makeMarker(position: location, color: .black)
-        animateShowView()
+        tempMarker = makeMarker(position: location, placeID: placeID, color: .black)
     }
     
     /**
@@ -119,6 +122,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             print("Place category \(place.types)")
             print("Place rating \(place.rating)")
         })
+        animateShowView()
     }
     
     
@@ -127,11 +131,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      
      - parameters:
         - position: Location Coordinate(2D)
+        - placeID: Place ID
         - color: Marker Color
      
      */
-    func makeMarker(position: CLLocationCoordinate2D, color: UIColor) -> GMSMarker {
+    func makeMarker(position: CLLocationCoordinate2D, placeID: String, color: UIColor) -> GMSMarker {
         let marker = GMSMarker(position: position)
+        marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
         return marker
@@ -151,9 +157,9 @@ extension MapViewController {
         makeInformationView()
         
         // TEST DATA
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black))
     }
     
     override func didReceiveMemoryWarning() {
