@@ -10,6 +10,7 @@
 		52A661DEE331D6679D4570DF /* libPods-MySpotsPrototype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB1F7ACDD57210889BF10E /* libPods-MySpotsPrototype.a */; };
 		AA0319FE1EF4A10D00E323A2 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0319FD1EF4A10D00E323A2 /* UIColor+.swift */; };
 		AA031A011EF4BAF200E323A2 /* PlaceInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA031A001EF4BAF200E323A2 /* PlaceInformation.xib */; };
+		AA11717F1EF892BC00844F3B /* DetailInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA11717E1EF892BC00844F3B /* DetailInformation.xib */; };
 		AA3D73991EF5F15700D6F240 /* PlaceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3D73981EF5F15700D6F240 /* PlaceInformation.swift */; };
 		AA59DA991EF3305E00C22F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DA981EF3305E00C22F09 /* AppDelegate.swift */; };
 		AA59DA9B1EF3305E00C22F09 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DA9A1EF3305E00C22F09 /* MapViewController.swift */; };
@@ -26,6 +27,7 @@
 		55EB1F7ACDD57210889BF10E /* libPods-MySpotsPrototype.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MySpotsPrototype.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0319FD1EF4A10D00E323A2 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		AA031A001EF4BAF200E323A2 /* PlaceInformation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceInformation.xib; sourceTree = "<group>"; };
+		AA11717E1EF892BC00844F3B /* DetailInformation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailInformation.xib; sourceTree = "<group>"; };
 		AA3D73981EF5F15700D6F240 /* PlaceInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInformation.swift; sourceTree = "<group>"; };
 		AA59DA951EF3305E00C22F09 /* MySpotsPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySpotsPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA59DA981EF3305E00C22F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				AA59DAAA1EF3382100C22F09 /* KeyManager.swift */,
 				AA3D73981EF5F15700D6F240 /* PlaceInformation.swift */,
 				AA031A001EF4BAF200E323A2 /* PlaceInformation.xib */,
+				AA11717E1EF892BC00844F3B /* DetailInformation.xib */,
 				AA0319FF1EF4A12600E323A2 /* Util */,
 				AA59DA9C1EF3305E00C22F09 /* Main.storyboard */,
 				AA59DA9F1EF3305E00C22F09 /* Assets.xcassets */,
@@ -179,6 +182,7 @@
 				AA031A011EF4BAF200E323A2 /* PlaceInformation.xib in Resources */,
 				AA59DAA01EF3305E00C22F09 /* Assets.xcassets in Resources */,
 				AA59DA9E1EF3305E00C22F09 /* Main.storyboard in Resources */,
+				AA11717F1EF892BC00844F3B /* DetailInformation.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

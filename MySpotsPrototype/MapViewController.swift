@@ -35,12 +35,23 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         print("Executed: Willmove")
         animateHideView()
+        mapView.clear()
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         print("Executed: didtapmarker")
         return true
     }
+    
+//    func mapView(_ mapView:GMSMapView, idleAt cameraPosition:GMSCameraPosition) {
+//        // Store GMSGeocoder as an instance variable.
+//        let geocoder = GMSGeocoder()
+//        geocoder.reverseGeocodeCoordinate(cameraPosition.target) { (response, error) in
+//            guard error == nil else {
+//                return
+//            }
+//        }
+//    }
     
     /**
      Tap event which is not a place from Google Place
