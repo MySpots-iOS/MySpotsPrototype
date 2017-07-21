@@ -12,6 +12,7 @@ class PlaceInformation: UIView {
 
     @IBOutlet weak var placeName: UILabel!
     @IBOutlet weak var addressName: UILabel!
+    @IBOutlet weak var distanceIcon: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +27,8 @@ class PlaceInformation: UIView {
     func loadXibView() {
         let view = Bundle.main.loadNibNamed( "PlaceInformation", owner: self, options: nil)?.first as! UIView
         view.frame = self.bounds
+        self.placeName.textColor = UIColor.mainDarkGreen()
+        self.distanceIcon.isUserInteractionEnabled = true
         self.addSubview(view)
     }
     

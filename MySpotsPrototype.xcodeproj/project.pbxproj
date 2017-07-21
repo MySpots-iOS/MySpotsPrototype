@@ -11,6 +11,7 @@
 		74313AB01EF86957006A6053 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74313AAF1EF86957006A6053 /* APIKey.plist */; };
 		AA0319FE1EF4A10D00E323A2 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0319FD1EF4A10D00E323A2 /* UIColor+.swift */; };
 		AA031A011EF4BAF200E323A2 /* PlaceInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA031A001EF4BAF200E323A2 /* PlaceInformation.xib */; };
+		AA1171811EF8E73A00844F3B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1171801EF8E73A00844F3B /* DetailViewController.swift */; };
 		AA3D73991EF5F15700D6F240 /* PlaceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3D73981EF5F15700D6F240 /* PlaceInformation.swift */; };
 		AA59DA991EF3305E00C22F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DA981EF3305E00C22F09 /* AppDelegate.swift */; };
 		AA59DA9B1EF3305E00C22F09 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DA9A1EF3305E00C22F09 /* MapViewController.swift */; };
@@ -27,6 +28,7 @@
 		74313AAF1EF86957006A6053 /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
 		AA0319FD1EF4A10D00E323A2 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		AA031A001EF4BAF200E323A2 /* PlaceInformation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceInformation.xib; sourceTree = "<group>"; };
+		AA1171801EF8E73A00844F3B /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		AA3D73981EF5F15700D6F240 /* PlaceInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInformation.swift; sourceTree = "<group>"; };
 		AA59DA951EF3305E00C22F09 /* MySpotsPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySpotsPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA59DA981EF3305E00C22F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				AA59DA981EF3305E00C22F09 /* AppDelegate.swift */,
 				AA59DA9A1EF3305E00C22F09 /* MapViewController.swift */,
+				AA1171801EF8E73A00844F3B /* DetailViewController.swift */,
 				AA59DAAA1EF3382100C22F09 /* KeyManager.swift */,
 				AA3D73981EF5F15700D6F240 /* PlaceInformation.swift */,
 				AA031A001EF4BAF200E323A2 /* PlaceInformation.xib */,
@@ -240,6 +243,7 @@
 				AA3D73991EF5F15700D6F240 /* PlaceInformation.swift in Sources */,
 				AA59DA9B1EF3305E00C22F09 /* MapViewController.swift in Sources */,
 				AA0319FE1EF4A10D00E323A2 /* UIColor+.swift in Sources */,
+				AA1171811EF8E73A00844F3B /* DetailViewController.swift in Sources */,
 				AA59DA991EF3305E00C22F09 /* AppDelegate.swift in Sources */,
 				AA59DAAB1EF3382100C22F09 /* KeyManager.swift in Sources */,
 			);

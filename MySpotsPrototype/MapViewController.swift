@@ -23,6 +23,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     fileprivate var placeInformationView: PlaceInformation? = nil
     fileprivate var generalInformation: UIView? = nil
+    fileprivate var generalInfoBottomConstraints: [NSLayoutConstraint] = []
     
     //TODO
     // marker variable that stored from database
@@ -33,6 +34,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         print("Executed: Willmove")
+        animateHideView()
+        //mapView.clear()
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        print("Executed: didtapmarker")
+        setGeneralInformation(marker.snippet!)
+        return true
+    }
+    
+    func mapView(_ mapView:GMSMapView, idleAt cameraPosition:GMSCameraPosition) {
+        reverseGeocodeCoordinate(cameraPosition.target)
+    }
+    
+    func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        // Store GMSGeocoder as an instance variable.
+        let geocoder = GMSGeocoder()
+        
+        geocoder.reverseGeocodeCoordinate(coordinate) { (response, error) in
+            guard error == nil else {
+                return
+            }
+            
+//            if let result = response?.firstResult() {
+//                print(result)
+//            }
+        }
     }
     
     /**
@@ -47,6 +75,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: TapAt CL")
         print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
         tempMarker?.map = nil
+        animateHideView()
     }
     
     /**
@@ -63,8 +92,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
         setGeneralInformation(placeID)
-        tempMarker = makeMarker(position: location, color: .black)
-        generalInformation?.isHidden = false
+        tempMarker = makeMarker(position: location, placeID: placeID, color: .black)
     }
     
     /**
@@ -94,6 +122,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             print("Place category \(place.types)")
             print("Place rating \(place.rating)")
         })
+        animateShowView()
     }
     
     
@@ -102,11 +131,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      
      - parameters:
         - position: Location Coordinate(2D)
+        - placeID: Place ID
         - color: Marker Color
      
      */
-    func makeMarker(position: CLLocationCoordinate2D, color: UIColor) -> GMSMarker {
+    func makeMarker(position: CLLocationCoordinate2D, placeID: String, color: UIColor) -> GMSMarker {
         let marker = GMSMarker(position: position)
+        marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
         return marker
@@ -126,9 +157,9 @@ extension MapViewController {
         makeInformationView()
         
         // TEST DATA
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black))
     }
     
     override func didReceiveMemoryWarning() {
@@ -207,14 +238,50 @@ extension MapViewController {
             return
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(detailView(_:)))
+        tapGesture.delegate = self as? UIGestureRecognizerDelegate
+        
+        generalInformation.addGestureRecognizer(tapGesture)
         self.view.addSubview(generalInformation)
         
         generalInformation.translatesAutoresizingMaskIntoConstraints = false
         generalInformation.heightAnchor.constraint(equalToConstant: 100).isActive = true
         generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
-        generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
-        generalInformation.isHidden = true
+        self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100))
+        self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0))
+        // Set default
+        self.generalInfoBottomConstraints[0].isActive = true
+    }
+    
+    func detailView(_ sender: UITapGestureRecognizer) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        vc.test = "aaa"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /**
+     Information View hide animation
+     
+     */
+    func animateHideView() {
+        self.generalInfoBottomConstraints[1].isActive = false
+        self.generalInfoBottomConstraints[0].isActive = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    /**
+     Information View show animation
+     
+     */
+    func animateShowView() {
+        self.generalInfoBottomConstraints[0].isActive = false
+        self.generalInfoBottomConstraints[1].isActive = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 }
 
